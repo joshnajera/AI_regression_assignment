@@ -1,18 +1,16 @@
 #!/usr/lib/python3
-import sklearn
-import xgboost
 from sklearn.ensemble import AdaBoostRegressor, RandomForestRegressor
+from sklearn.model_selection import LeaveOneOut, train_test_split
 from sklearn.linear_model import LinearRegression, Lasso
 from sklearn.feature_selection import RFECV
-from sklearn.model_selection import LeaveOneOut, train_test_split
+from datetime import datetime as dt
 import pandas as pd
+import matplotlib
+import sklearn
+import xgboost
 import numpy
 import csv
-import matplotlib
-from datetime import datetime as dt
 
-
-# FILE = 'C:\git\AI_regression_assignment\Dataset.csv'
 FILE = 'Dataset.csv'
 TEST_SIZE = .25
 
@@ -26,7 +24,6 @@ def main():
 
     dataframe = None
     with open(FILE) as file:
-        csv_data = csv.reader(file)
         dataframe = pd.read_csv(file, usecols=['Temperature', 'ThermalConductivity', 'O1', 'O2'])
         ####    Note: Not using 'Pressure' or 'SoundVelocity' -- This is because they are creating noise.
 	####		I found this out through use of RFECV, a tool to aid in Feature Selection
@@ -66,8 +63,8 @@ def main():
     score, iterations = 0, 0
     t0 = dt.today().now()
 
-    for i in range(40):
 
+    for i in range(40):
 	####	Following 3 lines are used for Feature Selection process only
         # clf.fit_transform(X_train, y_train)
         # print('Supporting features: {}'.format(clf.support_))
@@ -80,7 +77,6 @@ def main():
         score += clf.score(X_test, y_test)
         iterations += 1
         t1 = dt.today().now()
-
 
         # print("Input: {}".format(X_test))
         # print("Predictions: {}".format(clf.predict(X_test)))
