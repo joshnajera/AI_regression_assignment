@@ -12,7 +12,7 @@ import numpy
 import csv
 
 FILE = 'Dataset.csv'
-TEST_SIZE = .25
+TEST_SIZE = .45
 
 
 def main():
@@ -51,11 +51,13 @@ def main():
     ####    More accurate algorithms
     # clf = AdaBoostRegressor(base_estimator=CLF, n_estimators=100, learning_rate=1)
     # clf = RandomForestRegressor(n_estimators=17, criterion="mse", max_features=None)
-    clf = xgboost.XGBRegressor(n_estimators=800, learning_rate=0.1, max_depth=30)
+    ####    Best Algorithm!
+    clf = xgboost.XGBRegressor(n_estimators=100, learning_rate=0.1, max_depth=30)
 
 
-    ####    This helps for feature selection
+    ####    This helps for Feature Selection
     # clf = RFECV(estimator=clf, step=1)
+
 
 
     print("Classifier being used: {}".format(clf))
@@ -64,6 +66,7 @@ def main():
     t0 = dt.today().now()
 
 
+    #### Testing Accuracy ####
     for i in range(40):
 	####	Following 3 lines are used for Feature Selection process only
         # clf.fit_transform(X_train, y_train)
